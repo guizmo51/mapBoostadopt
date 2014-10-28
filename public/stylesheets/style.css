@@ -1,0 +1,170 @@
+body {
+  
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  overflow-y:hidden;
+  overflow-x:hidden;
+ 	padding-top: 80px;
+}
+.navbar-brand {
+padding-top: 0px;
+}
+a {
+  color: #00b7ff;
+}
+.well {
+	padding: 5px;
+	padding-right: 10px;
+}
+.container {
+  width : 100%;
+}
+.leaflet-control-locate {
+  border:1px solid rgba(0,0,0,0.4);
+  }
+.leaflet-control-locate a {
+  background-color:#fff;
+  background-position:-3px, -2px;
+  }
+.leaflet-control-locate.active a {
+  background-position:-33px -2px;
+  }
+
+  .leaflet-container {
+    overflow: visible;
+  }
+  
+  .openProfile:hover{
+  text-decoration: underline;
+}
+.openProfile{
+
+  cursor:hand;
+}
+
+.well{
+  padding: 5px;
+}
+#panel div{
+  opacity: 0.8;
+	background-color: rgba(255, 255, 255, 0.50);
+}
+#panel {
+height:150px;
+
+  
+}
+ #list{
+ 	float : right;
+ 	z-index: 15;
+ }
+ #list img{
+ 	width: 20px;
+ }
+
+  #map {   bottom:0; width: 100%; height: 100%;   }
+.itemList img {
+	float: left;
+}
+
+.itemList p {
+	float: right;
+}
+img{max-width:none;}
+  
+ #progress {
+    display: none;
+    position: absolute;
+    z-index: 1000;
+    width: 200px;
+    height: 20px;
+    left:0;
+    right:0;
+    top: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 4px;
+    padding: 2px;
+}
+
+#progress-bar {
+    width: 0;
+    height: 100%;
+    background-color: #76A6FC;
+    border-radius: 4px;
+}
+
+.navbar-default {
+    background-color: green;
+   
+}
+.navbar-inverse {
+	background-color:#222;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+	font-weight: bold;
+	color: pink;
+}
+
+.post-container {
+    margin: 20px 20px 0 0;  
+    border: 1px solid #333;
+    overflow: auto;
+}
+.post-thumb {
+    float: left;
+}
+.post-thumb img {
+    display: block;
+}
+.post-content {
+    margin-left: 150px;
+}
+.post-title {
+    font-weight: bold;
+    font-size: 200%;
+        
+}
+
+.girl {
+	color: #db336a;
+	}
+	
+.boy{
+	color: blue;
+	}
+	
+.openCity{
+	font-weight: bold;
+cursor: hand;	
+	}
+  .fb-share-button
+{
+transform: scale(2);
+-ms-transform: scale(2);
+-webkit-transform: scale(2);
+-o-transform: scale(2);
+-moz-transform: scale(2);
+transform-origin: top left;
+-ms-transform-origin: top left;
+-webkit-transform-origin: top left;
+-moz-transform-origin: top left;
+-webkit-transform-origin: top left;
+}
+.btn-facebook {
+	background: #3b5998;
+	border-radius: 0;
+	color: #fff
+}
+.btn-facebook:link, .btn-facebook:visited {
+	color: #fff
+}
+.btn-facebook:active, .btn-facebook:hover {
+	background: #30477a;
+	color: #fff
+}
+.ui-widget-content {
+	z-index:4000;
+	}

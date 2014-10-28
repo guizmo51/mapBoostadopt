@@ -1,0 +1,274 @@
+<html  xmlns:og="http://opengraphprotocol.org/schema/">
+<head>
+<title>Cartographie d'AdopteUnMec</title>
+<meta property="og:title" content="Cartographie des sites AdopteUnMec" />
+<meta name="description" content="Ce site est un projet de cartographie du site de rencontre AdopteUnMec. Les profils sont affichés géographiquement sur une carte interactive." />
+<meta property="og:description" content="Ce site est un projet de cartographie du site de rencontre AdopteUnMec. Les profils sont affichés géographiquement sur une carte interactive." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="http://map.boostadopt.com" />
+<meta property="og:image" content="http://map.boostadopt.com/img/boostCarre.png" />
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+ <script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+ <script src="/javascripts/cookies.js"></script>
+<script src="http://www.mapquestapi.com/sdk/js/v7.1.s/mqa.toolkit.js?key=Fmjtd%7Cluur2ga72l%2Crg%3Do5-9at55u"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="/stylesheets/bootstrap.min.css"/>
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="/stylesheets/bootstrap-theme.min.css" />
+
+<link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.24.0/L.Control.Locate.css' rel='stylesheet' />
+
+<!--[if lt IE 9]>
+  <link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.21.0/L.Control.Locate.ie.css' rel='stylesheet' />
+<![endif]-->
+<!-- Latest compiled and minified JavaScript -->
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+<link rel="stylesheet" href="/stylesheets/MarkerCluster.css" />
+<link rel="stylesheet" href="/stylesheets/MarkerCluster.Default.css" />
+
+<link rel="stylesheet" href="/stylesheets/social-sharing.min.css" />
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+ <link rel="stylesheet" href="//code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
+
+<link rel="stylesheet" href="/stylesheets/style.css" />
+ <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+
+
+<script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.24.0/L.Control.Locate.js'></script>
+<script src="/javascripts/MarkerCluster.js"></script>
+
+<script src="http://www.mapquestapi.com/sdk/leaflet/v1.0/mq-map.js?key=Fmjtd%7Cluur2ga72l%2Crg%3Do5-9at55u"></script>
+<script src="http://www.mapquestapi.com/sdk/leaflet/v1.0/mq-geocoding.js?key=Fmjtd%7Cluur2ga72l%2Crg%3Do5-9at55u"></script>
+</head>
+<body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&appId=1387558891504640&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+          <a class="navbar-brand" href="#">
+          Map
+	<img width="160px" src="img/boostTitlewhiteandRed.png" />          
+          </a>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a data-toggle="modal" data-target="#modalAbout" href="#">A propos</a></li>
+            <li><a data-toggle="modal" data-target="#modalSoutien" href="#">Soutenez-nous !</a></li>
+             </ul>
+         
+             
+            <div class="col-sm-3 col-md-3 pull-right">
+        <form class="navbar-form" role="search">
+        <div class="form-group">
+            
+            
+            <input type="text" id="inputSearchCity" class="form-control" placeholder="Enter a city name" name="srch-term" id="srch-term" />
+             
+        </div>
+        </form>
+        </div>
+        </div><!--/.nav-collapse -->
+      </div>
+ </div>
+ <div class="container">
+ <div class="alert alert-warning alert-dismissible" role="alert" style="z-index:2000">
+  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+  <strong>Warning!</strong> Better check yourself, you're not looking too good.
+</div>
+ <div id="progress"><div id="progress-bar"></div></div>
+ <div id="map"></div>
+ 
+ 
+ </div>
+ <div class="modal fade" id="modalFirstTime" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+      
+        <h4 class="modal-title" id="myModalLabel">Bienvenue</h4>
+      </div>
+      <div class="modal-body">
+        <h1>Bienvenue ! </h1>
+			<p>Cette application est un projet de cartographie des sites du groupe "GEB AdoptAGuy" (<a href="http://www.adopteunmec.com" target="_blank">AdopteUnMec.com</a>,<a href="http://www.adoptaguy.de" target="_blank">adoptaguy.de</a>,<a href="http://www.adottaunragazzo.it" target="_blank">adottaunragazzo.it</a> )</p>
+			<p>Nous n'avons aucun lien avec la société AdopteAGuy GEB </p>        
+        <p>Conformément aux CGU de ces sites : toutes les données visibles dans cette application sont "des données personnelles à caractère public" et accessibles aux seuls membres des sites AdoptAGuy</p>
+        
+			<p style="font-weight:bold;">Ce projet ne peut pas exister sans vous : merci de liker, partager, tweeter, suivre, faire un don ou ce que vous voulez </p>        
+        <p>Afin d'accéder à l'application merci de confirmer que vous êtes bien membre du site AdopteUnMec</p>
+        
+         
+      </div>
+      <div class="modal-footer">
+      <button id="modalBienvenueConfirmFalse" type="button" class="btn btn-warning">Je ne confirme pas</button>
+         <button id="modalBienvenueConfirmTrue" type="button" class="btn btn-success">Je confirme</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="modalHelp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+      
+        <h4 class="modal-title"></h4>
+      </div>
+      <div class="modal-body" >
+     <p>Vous avez visité plusieurs profils : merci ! :) Si vous souhaitez nous aider / nous remercier vous pouvez le faire de plusieurs manières : </p>
+     <p><div class="fb-like" data-href="https://www.facebook.com/BoostAdopt" data-layout="standard" data-action="like" data-show-faces="true" data-share="false"></div></p>
+ <p><a   href="https://www.facebook.com/sharer/sharer.php?u=http://map.boostadopt.com" title="Share on Facebook" target="_blank" class="btn btn-facebook fb-share trackClick"><i class="fa fa-facebook"></i> Partager sur Facebook</a></p>     
+
+	<p><a href="https://twitter.com/share" class="twitter-share-button trackClick" data-via="boostadopt" data-lang="fr" data-size="large">Tweeter</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script></p>     
+     </p>
+     <p><a href="https://twitter.com/boostadopt" class="twitter-follow-button trackClick" data-show-count="false" data-lang="fr" data-size="large">Suivre @boostadopt</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script></p>
+<p>Un de nos projets : <a href="http://www.boostadopt.com" target="_blank" class="btn btn-danger btn-lg  trackClick"><span class="glyphicon glyphicon-heart"></span> Pour booster vos visites sur Adopte !</a></p>
+<p><form onsubmit="closeModalHelp();" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="hosted_button_id" value="VJ29D4YD537BS">
+<input type="image" src="https://www.paypalobjects.com/fr_XC/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+<img alt="" border="0" src="https://www.paypalobjects.com/fr_XC/i/scr/pixel.gif" width="1" height="1">
+</form>
+</p>
+    
+      </div>
+        <div class="modal-footer">
+
+         <p><a href="#" class="btn btn-danger trackClick"><i class="icon-white icon-thumbs-down"></i> Je ne souhaite pas vous aider</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+ <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Commune de <span id="cityModalTitle"></span></h4>
+      </div>
+      <div class="modal-body" id="tableListProfiles">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="modalProfile" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Profil</h4>
+      </div>
+      <div class="modal-body" id="profileData">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="modalAbout" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">A propos</h4>
+      </div>
+      <div class="modal-body" >
+      <p> Ce projet n'a aucun but commercial. Il s'agit juste d'une cartographie des utilisateurs d'AdopteUnmec.</p>
+      <p>Ce projet utilise simplement un robot qui enregistre les profils, toutes les données visibles içi ne sont issues que de ce crawling et d'un travail manuel sur ces données.</p>
+<p>Ce projet se veut respectueux des lois en vigueur mais aussi du respect de la vie privée et des libertés. Si votre profil est présent içi et que vous souhaitez le faire disparaître <a href="mailto:sabrina.webdev@gmail.com?subject=Retrait%20profil">merci de nous contacter</a></p>      
+      <p>
+        Ce projet utilise les technologies suivantes :
+        <ul>
+			<li><a href="http://nodejs.org/" target="_blank">NodeJS</a></li>
+			<li><a href="http://expressjs.com/" target="_blank">ExpressJS</a></li>
+			<li><a href="http://www.mongodb.org/" target="_blank">MongoDB</a></li>
+			<li><a href="http://jquery.com/" target="_blank">Jquery</a></li>
+			<li><a href="http://www.mapquest.com/" target="_blank">Mapquest</a></li>
+			<li><a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a></li>
+			<li><a href="http://leafletjs.com/" target="_blank">Leaflet</a></li>
+			<li><a href="http://getbootstrap.com/" target="_blank">Bootstrap</a></li>
+        </ul>
+        Merci à eux
+        </p>
+        <p><a href="mailto:sabrina.webdev@gmail.com">Nous contacter</a></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="modalSoutien" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Soutenez-nous !</h4>
+      </div>
+      <div class="modal-body" >
+    
+     <p>Ce projet a nécessité du temps de développement et a un coût de fonctionnement conséquent que nous supportons. Si vous souhaitez que ce projet subsiste vous pouvez nous aider de différentes manières : en parlant de ce projet à travers les réseaux sociaux ou en nous faisant un don
+   <p><div class="fb-like" data-href="https://www.facebook.com/BoostAdopt" data-layout="standard" data-action="like" data-show-faces="true" data-share="false"></div></p>    
+    
+     <p><a   href="https://www.facebook.com/sharer/sharer.php?u=http://map.boostadopt.com" title="Share on Facebook" target="_blank" class="btn btn-facebook fb-share"><i class="fa fa-facebook"></i> Partager sur Facebook</a></p>
+	<p><a href="https://twitter.com/share" class="twitter-share-button" data-via="boostadopt" data-lang="fr" data-size="large">Tweeter</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script></p>     
+     </p>
+     <p><a href="https://twitter.com/boostadopt" class="twitter-follow-button" data-show-count="false" data-lang="fr" data-size="large">Suivre @boostadopt</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script></p>
+<p>Un de nos projets : <a href="http://www.boostadopt.com" target="_blank" class="btn btn-danger btn-lg"><span class="glyphicon glyphicon-heart"></span> Pour booster vos visites sur Adopte !</a></p>
+<p><form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="hosted_button_id" value="VJ29D4YD537BS">
+<input type="image" class="trackClick" src="https://www.paypalobjects.com/fr_XC/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+<img alt="" border="0" src="https://www.paypalobjects.com/fr_XC/i/scr/pixel.gif" width="1" height="1">
+</form>
+</p>
+</p>      
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
+<script src="/javascripts/script.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-54115459-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+ </body></html>
